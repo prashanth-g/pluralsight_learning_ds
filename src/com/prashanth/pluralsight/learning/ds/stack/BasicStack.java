@@ -10,17 +10,20 @@ public class BasicStack<X> {
         statckPointer = 0;
     }
 
-    public void pushItem(X newItem) {
+    // O(1)
+    public void push(X newItem) {
         data[statckPointer++] = newItem;
     }
 
-    public X popItem() {
+    // O(1)
+    public X pop() {
         if(statckPointer == 0) {
-            throw new IllegalStateException("No more items on the stack");
+            throw new IllegalStateException("Could not find any item to pop");
         }
         return data[--statckPointer];
     }
 
+    // O(n)
     public boolean contains(X item) {
         boolean found = false;
         for (int i = 0; i < statckPointer; i++) {
@@ -32,9 +35,10 @@ public class BasicStack<X> {
         return found;
     }
 
+    // O(n)
     public X access(X item) {
         while(statckPointer > 0) {
-            X tempItem = popItem();
+            X tempItem = pop();
             if(item.equals(tempItem)) {
                 return tempItem;
             }
