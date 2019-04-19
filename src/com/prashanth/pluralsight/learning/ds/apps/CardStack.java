@@ -1,13 +1,12 @@
 package com.prashanth.pluralsight.learning.ds.apps;
 
 import com.prashanth.pluralsight.learning.ds.stack.BasicStack;
+import com.prashanth.pluralsight.learning.ds.stack.Stack;
 
 import java.util.Random;
 
 public class CardStack {
-    BasicStack<String> stack = new BasicStack<String>();
-
-
+    Stack<String> stack = new BasicStack<String>();
 
     public static void main(String[] args) {
 
