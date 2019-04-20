@@ -8,7 +8,7 @@ public interface Queue<T> {
 
     public boolean contains(T element);
 
-    public T access(T element);
+    public T access(int position);
 
     public int size();
 }

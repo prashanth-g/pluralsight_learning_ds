@@ -53,12 +53,34 @@ public class BasicQueue<T> implements Queue<T> {
 
     @Override
     public boolean contains(T element) {
+        if(size() == 0) {
+            return false;
+        } else {
+            for (int i = front; i < end; i++) {
+                if(data[i] == element) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
-    public T access(T element) {
-        return null;
+    public T access(int position) {
+        if(size() == 0 && position > size()) {
+            throw new IllegalArgumentException("No items available in the position");
+        }
+
+        int index = 0;
+        for (int i = front; i < end; i++) {
+            if(index == position) {
+                return data[i];
+            }
+            index++;
+        }
+
+
+        throw new IllegalArgumentException("Could not access the element at the given position");
     }
 
     @Override
