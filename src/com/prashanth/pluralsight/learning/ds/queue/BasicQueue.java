@@ -40,8 +40,8 @@ public class BasicQueue<T> implements Queue<T> {
         } else if(front == end) {
             item = data[front]; // clear the dequeued spot
             data[front] = null;
-            front--;
-            end--;
+            front = -1;
+            end = -1;
         } else {
             item = data[front];
             data[front] = null; // clear the dequeued spot
