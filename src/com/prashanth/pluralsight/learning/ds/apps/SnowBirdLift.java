@@ -1,11 +1,12 @@
 package com.prashanth.pluralsight.learning.ds.apps;
 
 import com.prashanth.pluralsight.learning.ds.queue.BasicQueue;
+import com.prashanth.pluralsight.learning.ds.queue.ListQueue;
 import com.prashanth.pluralsight.learning.ds.queue.Queue;
 
 public class SnowBirdLift {
 
-    Queue<CoupleChair> coupleChairQueue = new BasicQueue<CoupleChair>();
+    Queue<CoupleChair> coupleChairQueue = new ListQueue<CoupleChair>();
 
     public static void main(String[] args) {
         SnowBirdLift lift = new SnowBirdLift();
@@ -14,7 +15,6 @@ public class SnowBirdLift {
 
     public void runLift() {
         loadLift();
-
 
         System.out.println(coupleChairQueue.size());
 
