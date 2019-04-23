@@ -4,10 +4,41 @@ public class BasicLinkedList<T> {
 
     private Node first;
     private Node last;
+    private int nodeCount;
 
     public BasicLinkedList() {
         first = null;
         last = null;
+        nodeCount = 0;
+    }
+
+    public int size() {
+        return nodeCount;
+    }
+
+    public void add(T item) {
+        if(first == null) {
+            first = new Node(item);
+            last = first;
+        } else {
+            Node newLastNode = new Node(item);
+            last.setNextNode(newLastNode); // Set current last node's next node to new node
+            last = newLastNode;
+        }
+        nodeCount++;
+    }
+
+    public T remove() {
+        if(first == null) {
+            throw new IllegalArgumentException("LinkedList is empty!");
+        } else {
+            // Get node
+             T nodeItem = first.getNodeItem();
+            // Change previous node's next node
+            first = first.getNextNode();
+            nodeCount--;
+            return nodeItem;
+        }
     }
 
     private class Node {
