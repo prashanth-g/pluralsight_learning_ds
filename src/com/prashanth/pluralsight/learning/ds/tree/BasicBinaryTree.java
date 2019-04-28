@@ -17,7 +17,7 @@ public class BasicBinaryTree<T extends Comparable<T>> {
        Node newNode = new Node(item);
 
        if(root == null) {
-           root = newNode;
+           this.root = newNode;
            this.size++;
        } else {
            insert(this.root, newNode);
@@ -26,7 +26,7 @@ public class BasicBinaryTree<T extends Comparable<T>> {
 
     private void insert(Node parent, Node child) {
         if(child.getItem().compareTo(parent.getItem()) < 0) {
-            if(parent.getItem() == null) {
+            if(parent.getLeft()== null) {
                 parent.setLeft(child);
                 child.setParent(parent);
                 this.size++;
@@ -34,7 +34,7 @@ public class BasicBinaryTree<T extends Comparable<T>> {
                 insert(parent.getLeft(), child);
             }
         } else if(child.getItem().compareTo(parent.getItem()) > 0) {
-            if(parent.getItem() == null) {
+            if(parent.getRight() == null) {
                 parent.setRight(child);
                 child.setParent(parent);
                 this.size++;
@@ -93,6 +93,66 @@ public class BasicBinaryTree<T extends Comparable<T>> {
 //        }
 //        return false;
 //    }
+
+    public boolean delete(T item) { // Unlinking and severing
+        boolean deleted = false;
+
+        if(this.root == null) {
+            return false;
+        }
+
+        Node currentNode = getNode(item);
+
+        if(currentNode != null) {
+            if(currentNode.getLeft() == null && currentNode.getRight() == null) {
+                unlink(currentNode, null);
+                deleted = true;
+            } else if(currentNode.getLeft() == null && currentNode.getRight() != null) {
+                unlink(currentNode, currentNode.getRight());
+                deleted = true;
+            } else if(currentNode.getLeft() != null && currentNode.getRight() == null) {
+                unlink(currentNode, currentNode.getLeft());
+                deleted = true;
+            } else {
+
+                // Go to the left of the current node (which has to be deleted)
+                Node child = currentNode.getLeft();
+                // Find the right most node of this child - if any
+                while (child.getLeft() != null && child.getRight() != null) {
+                    child = child.getRight();
+                }
+
+                // Swap it with the current node
+
+                child.getParent().setRight(null);
+                child.setLeft(currentNode.getLeft());
+                child.setRight(currentNode.getRight());
+
+//                child.setRight(currentNode.getRight());
+//                child.getParent().setRight(null);
+
+                // Unlink or delete the current node
+                unlink(currentNode, child);
+                deleted = true;
+            }
+        }
+
+        if(deleted) { size-- ;}
+
+        return deleted;
+    }
+
+    private void unlink(Node currentNode, Node newNode) {
+        if(currentNode == this.root) {
+            newNode.setLeft(currentNode.getLeft());
+            newNode.setRight(currentNode.getRight());
+            this.root = newNode;
+        } else if(currentNode.getParent().getRight() == currentNode) {
+            currentNode.getParent().setRight(newNode);
+        } else if(currentNode.getParent().getLeft() == currentNode) {
+            currentNode.getParent().setLeft(newNode);
+        }
+    }
 
     private class Node {
 
