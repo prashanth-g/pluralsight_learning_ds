@@ -7,7 +7,7 @@ public class BasicHashTable<K, V> {
     private int size;
 
     public BasicHashTable(int tableSize) {
-        this.capacity = capacity;
+        this.capacity = tableSize;
         this.data = new HashEntry[this.capacity];
         this.size = 0;
     }
